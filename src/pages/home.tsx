@@ -4,6 +4,7 @@ import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 import Image from '../assets/abba.png';
 import Post from "../components/Post";
 import Project, {  ProjectPropsType as ProjectType } from "../components/Project";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   const posts = [
@@ -39,7 +40,7 @@ export default function Home() {
     },
     {
       title: "EduTracka",
-      description: "A student performance tracking app available on both web and mobile, providing real-time insights into student progress.",
+      description: "School Management Platform that allows administrators to manage and track there school activities from student and staff management to fees and results management all in simple and a unified interface",
       link: "https://github.com/yourusername/edutracka",
       technologies: ["React Native", "Supabase", "Drizzle ORM", "Expo Router"],
       coverImage: "https://picsum.photos/400/250?random=2",
@@ -58,6 +59,13 @@ export default function Home() {
       technologies: ["React", "Vite", "TailwindCSS", "Sanity.io", "Framer Motion"],
       coverImage: "https://picsum.photos/400/250?random=4",
     },
+    {
+      title: "Promptium",
+      description: "AI Prompt generation and experimentation tool that allow users to craft excellent Prompt through a simple step by step processs.",
+      link: "https://promptium.netlify.app",
+      technologies: ["React", "Flask", "Azure Cloud", "Google Gemini API", "TailwindCSS"],
+      coverImage: "/img/promptium.resized.jpeg"
+    }
   ];  
   
 
@@ -106,18 +114,18 @@ export default function Home() {
       </motion.div>
 
       {/* About & Experience Section */}
-      <div className="bg-gray-50 py-5">
+      <div className="bg-gray-50 py-5 p-4">
         {/* About Me Section */}
         <motion.section 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1 }}
-          className="mt-8 max-w-4xl mx-auto text-center md:text-left w-full"
+          className="mt-8 max-w-4xl mx-auto text-left w-full"
         >
             <h2 className="text-3xl md:text-4xl font-bold text-[#B36A10] mb-4">About Me</h2>
             <p className="text-lg md:text-xl text-gray-700 mb-6 leading-relaxed">
-            Hi, I'm a Fullstack and Mobile App Developer with a passion for crafting innovative digital solutions. I thrive on transforming complex challenges into intuitive, high-performance applications. My journey in tech has taken me from developing dynamic mobile experiences using React Native and robust state management tools like MobX, to designing sleek, responsive interfaces with React, Tailwind CSS, and Sanity CMS. I also bring backend expertise to the table, working with Python frameworks such as Flask and Django to build scalable, secure systems.
+            Hi, I'm a Fullstack and Mobile App Developer with a passion for crafting innovative digital solutions. I thrive on transforming complex challenges into intuitive, high-performance applications. My journey in tech has taken me from developing dynamic mobile experiences using React Native and robust state management tools like Redux, Zustand and MobX, to designing sleek, responsive interfaces with React, Tailwind CSS, and Other backend services. I also bring backend expertise to the table, working with Python frameworks such as Flask and Django to build scalable, secure systems.
             </p>
             <p className="text-lg md:text-xl text-gray-700 mb-6 leading-relaxed mt-4">
             Whether I'm building privacy-focused apps, dynamic websites, or streamlining user experiences with smooth animations, my goal is to merge creativity with cutting-edge technology to deliver solutions that truly make an impact. Let's build something amazing together!
@@ -130,13 +138,14 @@ export default function Home() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1 }}
-          className="mt-8 max-w-4xl mx-auto text-center md:text-left w-full"
+          className="mt-8 max-w-4xl mx-auto text-left w-full"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4 text-[#B36A10]">Experience</h2>
           <div className="space-y-6">
             <div>
-              <h3 className="text-2xl font-semibold text-gray-700">Freelance Mobile Developer</h3>
-              <p className="text-lg text-gray-700">Jan 2024 - Present</p>
+              <h3 className="text-2xl font-semibold text-gray-700">Edutracka</h3>
+              <h4 className="text-xl font-semibold text-gray-500">CTO and Lead Developer</h4>
+              <p className="text-lg text-gray-700">Jan 2025 - Present</p>
               <p className="text-lg text-gray-700">
                 <ul className="list-disc pl-6">
                   <li>Developed MyCircle – a privacy-focused group activity app.</li>
@@ -151,13 +160,13 @@ export default function Home() {
       </div>
 
       {/* Projects Section */}
-      <div className="py-2 ">
+      <div className="py-2 px-4">
         <motion.section
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1 }}
-          className="mt-8 max-w-4xl mx-auto pb-4"
+          className="mt-8 max-w-4xl  mx-auto pb-4"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-8 text-center">Projects</h2>
           <div className="space-y-16">
@@ -177,7 +186,7 @@ export default function Home() {
       </div>
 
       {/* Recent Blog Posts Section */}
-      <div className="bg-gray-50 py-5">
+      <div className="bg-gray-50 py-5 px-4">
         <motion.section
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -197,12 +206,12 @@ export default function Home() {
             ))}
             </div>
             <div className="text-center mt-8">
-              <a 
-                href="/blog" 
-                className="inline-block px-4 py-2 text-lg font-semibold text-[#B36A10] border-2 border-[#B36A10] rounded-lg hover:bg-[#B36A10] hover:text-white transition-colors duration-300"
+              <Link 
+              to="/blog" 
+              className="inline-block px-6 py-2 text-lg font-semibold text-white bg-gradient-to-r from-[#B36A10] to-[#FF8C00] rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
               >
-                Read More Posts
-              </a>
+              Explore More Posts
+              </Link>
             </div>
         </motion.section>
       </div>
