@@ -1,4 +1,6 @@
 {
+  // Ensure the schema reference is removed if internet connectivity is an issue
+  "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
     "target": "ES2017",
     "lib": ["dom", "dom.iterable", "esnext"],

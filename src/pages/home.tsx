@@ -5,6 +5,11 @@ import Image from '../assets/abba.png';
 import Post from "../components/Post";
 import Project, {  ProjectPropsType as ProjectType } from "../components/Project";
 import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { client } from "../sanity/client";
+
+
+const PROJECTS_QUERY = `*[_type == "project"]{_id, title, image, description, technologies, github, live}`
 
 export default function Home() {
   const posts = [
@@ -30,44 +35,23 @@ export default function Home() {
     }
   ];
   
-  const projects: ProjectType[] = [
-    {
-      title: "MyCircle",
-      description: "A privacy-focused group activity app that enables secure event planning and group communication.",
-      link: "https://github.com/yourusername/mycircle",
-      technologies: ["React Native", "MobX", "Expo-SQLite", "Supabase"],
-      coverImage: "https://picsum.photos/400/250?random=1",
-    },
-    {
-      title: "EduTracka",
-      description: "School Management Platform that allows administrators to manage and track there school activities from student and staff management to fees and results management all in simple and a unified interface",
-      link: "https://github.com/yourusername/edutracka",
-      technologies: ["React Native", "Supabase", "Drizzle ORM", "Expo Router"],
-      coverImage: "https://picsum.photos/400/250?random=2",
-    },
-    {
-      title: "Al-Mudarris",
-      description: "A class management app designed to help teachers organize classes, manage schedules, and track student progress effectively.",
-      link: "https://github.com/yourusername/al-mudarris",
-      technologies: ["React Native", "Supabase", "Drizzle ORM", "Expo-SQLite"],
-      coverImage: "https://picsum.photos/400/250?random=3",
-    },
-    {
-      title: "Developer Portfolio",
-      description: "A personal portfolio website showcasing projects, blogs, and professional experience with a dynamic CMS.",
-      link: "https://yourportfolio.com",
-      technologies: ["React", "Vite", "TailwindCSS", "Sanity.io", "Framer Motion"],
-      coverImage: "https://picsum.photos/400/250?random=4",
-    },
-    {
-      title: "Promptium",
-      description: "AI Prompt generation and experimentation tool that allow users to craft excellent Prompt through a simple step by step processs.",
-      link: "https://promptium.netlify.app",
-      technologies: ["React", "Flask", "Azure Cloud", "Google Gemini API", "TailwindCSS"],
-      coverImage: "/img/promptium.resized.jpeg"
-    }
-  ];  
-  
+  // State to hold projects data
+  const [projects, setProjects] = useState<ProjectType[]>([]);
+
+  // Fetch projects data from Sanity CMS
+  // This effect runs once when the component mounts
+  React.useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const response = await client.fetch(PROJECTS_QUERY);
+        console.log("Fetched Projects:", response);
+        setProjects(response);
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+      }
+    };
+    fetchProjects();
+  }, []);
 
   return (
     <>
@@ -141,21 +125,33 @@ export default function Home() {
           className="mt-8 max-w-4xl mx-auto text-left w-full"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4 text-[#B36A10]">Experience</h2>
-          <div className="space-y-6">
-            <div>
-              <h3 className="text-2xl font-semibold text-gray-700">Edutracka</h3>
-              <h4 className="text-xl font-semibold text-gray-500">CTO and Lead Developer</h4>
-              <p className="text-lg text-gray-700">Jan 2025 - Present</p>
-              <p className="text-lg text-gray-700">
-                <ul className="list-disc pl-6">
-                  <li>Developed MyCircle – a privacy-focused group activity app.</li>
-                  <li>Currently working on Al-Mudarris – a class management app for teachers.</li>
-                  <li>Utilized MobX, Expo-SQLite, and Supabase for state management and data synchronization.</li>
-                </ul>
-              </p>
-            </div>
-            
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+            className="p-6 bg-white rounded-lg shadow-md"
+          >
+            <h4 className="text-xl font-semibold text-gray-600 mb-2">Co-Founder & CTO</h4>
+            <h5 className="text-xl text-gray-700 font-bold text-primary mb-2">Edutracka</h5>
+            <p className="text-lg text-gray-500 mb-4">Jan 2025 - Present</p>
+            <p className="text-lg text-gray-700 mb-4">
+            I lead the technical vision and development of EduTracka, a cloud-based school management platform designed to streamline administrative tasks and improve parent-teacher communication. My responsibilities include:
+            </p>
+            <ul className="list-disc pl-6 text-lg text-gray-700 space-y-2">
+              <li>Architect the System: I designed the platform using clean architecture and multi-tenant principles to ensure scalability and data isolation for each school.</li>
+
+              <li>Build Core Features: From student records and attendance to results computation, fees tracking, and parent-teacher communication — I’ve built the core backend services using Flask and SQLAlchemy.</li>
+
+              <li>Develop Mobile & Web APIs: I create and maintain APIs that power both the web-based admin panel and mobile apps for parents and teachers.</li>
+
+              <li>Ensure Platform Security: I implement role-based access, secure authentication, and database-level controls to protect sensitive data.</li>
+
+              <li>Oversee DevOps & Cloud Infrastructure: I manage cloud deployments, automated testing, and CI/CD pipelines to ensure reliable updates and performance.</li>
+
+              {/* <li>Collaborate on UI/UX: I work closely with our design team to shape intuitive user interfaces for school admins, teachers, and parents.</li> */}
+            </ul>
+          </motion.div>
         </motion.section>
       </div>
 
@@ -176,9 +172,10 @@ export default function Home() {
               title={project.title}
               description={project.description}
               technologies={project.technologies}
-              coverImage={project.coverImage}
+              image={project.image}
               reverse={index % 2 === 0}
-              link={project.link}
+              live={project.live}
+              github={project.github}
               />
             ))}
           </div>
