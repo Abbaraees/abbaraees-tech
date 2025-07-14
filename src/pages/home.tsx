@@ -63,7 +63,7 @@ export default function Home() {
         className="mt-16 flex flex-col md:flex-row items-center justify-center"
       >
         
-        <div className="text-center md:text-left">
+        <div className="text-center md:text-left mx-12">
           <h1 className="text-4xl md:text-6xl font-bold text-primary mb-4">
             Hi, I'm Muhammad Lawal
           </h1>
