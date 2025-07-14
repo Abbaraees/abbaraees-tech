@@ -9,7 +9,7 @@ import React, { useState } from "react";
 import { client } from "../sanity/client";
 
 
-const PROJECTS_QUERY = `*[_type == "project"]{_id, title, image, description, technologies, github, live}`
+const PROJECTS_QUERY = `*[_type == "project"][0..3]{_id, title, image, description, technologies, github, live}`
 
 export default function Home() {
   const posts = [
@@ -108,12 +108,19 @@ export default function Home() {
           className="mt-8 max-w-4xl mx-auto text-left w-full"
         >
             <h2 className="text-3xl md:text-4xl font-bold text-[#B36A10] mb-4">About Me</h2>
-            <p className="text-lg md:text-xl text-gray-700 mb-6 leading-relaxed">
-            Hi, I'm a Fullstack and Mobile App Developer with a passion for crafting innovative digital solutions. I thrive on transforming complex challenges into intuitive, high-performance applications. My journey in tech has taken me from developing dynamic mobile experiences using React Native and robust state management tools like Redux, Zustand and MobX, to designing sleek, responsive interfaces with React, Tailwind CSS, and Other backend services. I also bring backend expertise to the table, working with Python frameworks such as Flask and Django to build scalable, secure systems.
+            <p className="text-lg md:text-xl text-gray-700 mb-6 leading-8 text-justfiy">
+              I'm Muhammad Lawal, a Fullstack Developer and Tech Entrepreneur passionate about building scalable digital products that solve real problems.
             </p>
-            <p className="text-lg md:text-xl text-gray-700 mb-6 leading-relaxed mt-4">
-            Whether I'm building privacy-focused apps, dynamic websites, or streamlining user experiences with smooth animations, my goal is to merge creativity with cutting-edge technology to deliver solutions that truly make an impact. Let's build something amazing together!
+            <p className="text-lg md:text-xl text-gray-700 mb-6 leading-8 text-justify">
+              Currently, I’m the Co-Founder & CTO of EduTracka, a cloud-based school management platform designed to simplify operations and improve communication in schools.
             </p>
+            <p className="text-lg md:text-xl text-gray-700 mb-6 leading-8 text-justify">
+              With 4+ years of experience in Python, Flask, React, and mobile app development, I focus on clean architecture, intuitive UI, and high-performance systems. I'm also exploring system design, automation, and AI integration to push the boundaries of what's possible in EdTech.
+            </p>
+            <p className="text-lg md:text-xl text-gray-700 mb-6 leading-8 text-justify">
+              Let's build something impactful.            
+            </p>
+            
         </motion.section>
 
         {/* Experience Section */}
